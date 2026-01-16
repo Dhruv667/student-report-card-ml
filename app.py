@@ -13,10 +13,10 @@ st.title("🎓 Student Report Card & Pass/Fail Prediction System")
 
 name = st.text_input("Enter Student Name")
 roll_no = st.text_input("Enter Roll Number")
-division = st.text_input("Enter Division (e.g. A)")
+division = st.selectbox("Enter Division", ["A", "B","C"])
 standard = st.selectbox("Select Standard", ["10th", "12th"])
 
-st.subheader("Enter Subject Marks (out of 100)")
+st.subheader("Enter Subject Marks")
 
 if standard == "10th":
     english = st.number_input("English", 0, 100)
