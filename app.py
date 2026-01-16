@@ -9,7 +9,7 @@ def load_model():
 model = load_model()
 
 
-st.title("Student Report Card & Pass/Fail Prediction System")
+st.title("🎓 Student Report Card & Pass/Fail Prediction System")
 
 name = st.text_input("Enter Student Name")
 roll_no = st.text_input("Enter Roll Number")
