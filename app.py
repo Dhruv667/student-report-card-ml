@@ -4,8 +4,6 @@ import numpy as np
 
 model = joblib.load("student_report_model.pkl")
 
-model = load_model()
-
 st.title("🎓 Student Report Card & Pass/Fail Prediction System")
 
 name = st.text_input("Enter Student Name")
