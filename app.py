@@ -1,6 +1,7 @@
 import streamlit as st
 import joblib
 import numpy as np
+import pandas as pd
 
 model = joblib.load("student_report_model.pkl")
 
@@ -8,7 +9,7 @@ st.title("🎓 Student Report Card & Pass/Fail Prediction System")
 
 name = st.text_input("Enter Student Name")
 roll_no = st.text_input("Enter Roll Number")
-division = st.selectbox("Enter Division", ["A", "B","C"])
+division = st.selectbox("Enter Division", ["A", "B", "C"])
 standard = st.selectbox("Select Standard", ["10th", "12th"])
 
 st.subheader("📚 Enter Subject Marks")
@@ -21,6 +22,7 @@ if standard == "10th":
     science = st.number_input("Science", 0, 100)
 
     subjects = [english, hindi, marathi, maths, science]
+    subject_names = ["English", "Hindi", "Marathi", "Mathematics", "Science"]
 
 elif standard == "12th":
     physics = st.number_input("Physics", 0, 100)
@@ -30,7 +32,7 @@ elif standard == "12th":
     english = st.number_input("English", 0, 100)
 
     subjects = [physics, chemistry, maths, biology, english]
-
+    subject_names = ["Physics", "Chemistry", "Mathematics", "Biology", "English"]
 
 if st.button("Generate Report Card"):
 
@@ -62,16 +64,37 @@ if st.button("Generate Report Card"):
 
     st.subheader("📄 Report Card")
 
-    st.write("Name:", name)
-    st.write("Roll Number:", roll_no)
-    st.write("Division:", division)
-    st.write("Standard:", standard)
+    student_info = pd.DataFrame({
+        "Personal Details": ["Name", "Roll Number", "Division", "Standard"],
+        "Value": [name, roll_no, division, standard]
+    })
 
-    st.write("Total Marks:", total_marks, "/ 500")
-    st.write("Percentage:", round(percentage, 2), "%")
-    st.write("Grade:", grade)
+    st.subheader("📝 Student Details")
+    st.table(student_info)
+
+    marks_table = pd.DataFrame({
+        "Subject": subject_names,
+        "Marks Obtained": subjects,
+        "Max Marks": [100, 100, 100, 100, 100]
+    })
+
+    st.subheader("📚 Subject-wise Marks")
+    st.table(marks_table)
+
+    summary_table = pd.DataFrame({
+        "Metric": ["Total Marks", "Percentage", "Grade", "Result"],
+        "Value": [
+            f"{total_marks} / 500",
+            f"{round(percentage, 2)} %",
+            grade,
+            result
+        ]
+    })
+
+    st.subheader("📊 Result Summary")
+    st.table(summary_table)
 
     if result == "PASS":
-        st.success("Result: PASS")
+        st.success("✅ Result: PASS")
     else:
-        st.error("Result: FAIL")
+        st.error("❌ Result: FAIL")
