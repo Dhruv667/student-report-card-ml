@@ -53,12 +53,12 @@ if st.button("Generate Report Card"):
     prediction = model.predict(input_data)
 
     if any(mark < 35 for mark in subjects):
-    result = "FAIL"
-    
-    if prediction[0] == 1:
-        result = "PASS"
-    else:
         result = "FAIL"
+    else:
+        if prediction[0] == 1:
+            result = "PASS"
+        else:
+            result = "FAIL"
 
     st.subheader("Report Card")
 
