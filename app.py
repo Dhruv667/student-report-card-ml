@@ -52,6 +52,9 @@ if st.button("Generate Report Card"):
     input_data = np.array([[average_marks, percentage]])
     prediction = model.predict(input_data)
 
+    if any(mark < 35 for mark in subjects):
+    result = "FAIL"
+    
     if prediction[0] == 1:
         result = "PASS"
     else:
