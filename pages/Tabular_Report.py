@@ -3,11 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-@st.cache_resource
-def load_model():
-    return joblib.load("student_report_model.pkl")
-
-model = load_model()
+model = joblib.load("student_report_model.pkl")
 
 st.title("🎓 Student Report Card & Pass/Fail Prediction System")
 
@@ -16,7 +12,7 @@ roll_no = st.text_input("Enter Roll Number")
 division = st.selectbox("Enter Division", ["A", "B", "C"])
 standard = st.selectbox("Select Standard", ["10th", "12th"])
 
-st.subheader("📚 Enter Subject Marks (out of 100)")
+st.subheader("📚 Enter Subject Marks")
 
 if standard == "10th":
     english = st.number_input("English", 0, 100)
@@ -69,7 +65,7 @@ if st.button("Generate Report Card"):
     st.subheader("📄 Report Card")
 
     student_info = pd.DataFrame({
-        "Field": ["Name", "Roll Number", "Division", "Standard"],
+        "Personal Details": ["Name", "Roll Number", "Division", "Standard"],
         "Value": [name, roll_no, division, standard]
     })
 
