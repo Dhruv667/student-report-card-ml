@@ -2,7 +2,12 @@ import streamlit as st
 import joblib
 import numpy as np
 
-model = joblib.load("student_report_model.pkl")
+@st.cache_resource
+def load_model():
+    return joblib.load("student_report_model.pkl")
+
+model = load_model()
+
 
 st.title("Student Report Card & Pass/Fail Prediction System")
 
